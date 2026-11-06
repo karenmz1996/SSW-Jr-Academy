@@ -252,8 +252,27 @@ function showMaster(){
     <div class="cel-row"><span>XP earned</span><span>${fmt(total)}</span></div>
     <div class="cel-row"><span>Skills at Proficient or above</span><span>${proficient} of ${SKILLS.length}</span></div>
     <div class="cel-row"><span>Skills mastered</span><span>${mastered}</span></div>
-   </div><button class="cta wide" data-act="celdone">So shall we lead?</button></div></div>`;
+   </div><button class="cta wide slot-cta" data-act="celdone" aria-label="So shall we"><span>So shall we</span><span class="slot" aria-hidden="true"><span class="slot-track"></span></span></button></div></div>`;
+  spinSlot();
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) confetti(['#F6F07E','#EFEA81','#E3C25A','#5EEBF5','#ffffff']);
+}
+/* SSW values on a slot reel: spins on open, lands on one, spins again on hover */
+const VALUES=['give a f#ck','have a crack','create impact','chase better'];
+function spinSlot(){
+  const btn=document.querySelector('.slot-cta'), track=btn&&btn.querySelector('.slot-track'); if(!track) return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reps=reduce?1:8, items=[];
+  for(let r=0;r<reps;r++) VALUES.forEach(v=>items.push(v));
+  track.innerHTML=items.map(v=>`<span>${v}?</span>`).join('');
+  const spin=()=>{
+    const pick=Math.floor(Math.random()*VALUES.length), idx=(reps-1)*VALUES.length+pick;
+    track.style.transition='none'; track.style.transform='translateY(0)'; void track.offsetHeight;
+    track.style.transition=reduce?'none':'transform 2.4s cubic-bezier(.12,.75,.2,1)';
+    track.style.transform=`translateY(${-idx*1.25}em)`;
+    btn.setAttribute('aria-label',`So shall we ${VALUES[pick]}?`);
+  };
+  spin();
+  if(!reduce){let busy=false;btn.addEventListener('mouseenter',()=>{if(busy)return;busy=true;spin();setTimeout(()=>busy=false,2400);});}
 }
 function confetti(palette){
   const cv=document.getElementById('confetti'); if(!cv)return; const x=cv.getContext('2d');

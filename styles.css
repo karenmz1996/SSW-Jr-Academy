@@ -411,3 +411,10 @@ input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--pink
 .master-card .stamp{font-size:56px}
 .master-p{margin:0;color:var(--muted);font-size:15px;max-width:34ch}
 .master-p b{color:var(--yellow)}
+
+/* "So shall we ___?" slot reel on the graduation CTA */
+.slot-cta{display:inline-flex;align-items:center;gap:.4em;white-space:nowrap}
+.slot{display:inline-block;height:1.25em;line-height:1.25em;overflow:hidden;min-width:14ch;text-align:left;vertical-align:bottom;
+  -webkit-mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent)}
+.slot-track{display:flex;flex-direction:column;will-change:transform}
+.slot-track span{height:1.25em;line-height:1.25em;display:block}
