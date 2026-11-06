@@ -1,0 +1,62 @@
+[
+  {
+    "id": "acct",
+    "n": "Account knowledge"
+  },
+  {
+    "id": "onb",
+    "n": "Onboarding & escalation"
+  },
+  {
+    "id": "proc",
+    "n": "Process & ClickUp"
+  },
+  {
+    "id": "route",
+    "n": "Ownership routing"
+  },
+  {
+    "id": "brief",
+    "n": "Creative briefing"
+  },
+  {
+    "id": "qa",
+    "n": "Creative QA"
+  },
+  {
+    "id": "perf",
+    "n": "Starting from performance"
+  },
+  {
+    "id": "xbrief",
+    "n": "Cross-functional briefs"
+  },
+  {
+    "id": "loop",
+    "n": "Closing the loop"
+  },
+  {
+    "id": "pace",
+    "n": "Pace & approvals"
+  },
+  {
+    "id": "comms",
+    "n": "Client-facing comms"
+  },
+  {
+    "id": "defend",
+    "n": "Defending a recommendation"
+  },
+  {
+    "id": "metrics",
+    "n": "Metrics fluency"
+  },
+  {
+    "id": "proact",
+    "n": "Proactive insight"
+  },
+  {
+    "id": "live",
+    "n": "Running a client meeting"
+  }
+]

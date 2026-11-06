@@ -1,0 +1,57 @@
+{
+  "id": "w3",
+  "icon": "chat",
+  "q": "So shall we talk?",
+  "sub": "Client service",
+  "desc": "Client communication to SSW standards, including when things don’t go to plan.",
+  "quests": [
+    {
+      "id": "q31",
+      "sk": "loop",
+      "t": "Close the loop",
+      "type": "text",
+      "xp": 100,
+      "d": "Rewrite three replies so each carries a next step and an ETA."
+    },
+    {
+      "id": "q32",
+      "sk": "pace",
+      "t": "Chase an approval",
+      "type": "text",
+      "xp": 100,
+      "d": "A batch has waited five days. Get it approved without being pushy."
+    },
+    {
+      "id": "q33",
+      "sk": "comms",
+      "t": "Call Recap, same day",
+      "type": "text",
+      "xp": 150,
+      "d": "Exact title, numbers, decisions and action items with owner and ETA."
+    },
+    {
+      "id": "q34",
+      "sk": "comms",
+      "t": "BOW Update",
+      "type": "clip",
+      "xp": 150,
+      "d": "Business state, 3 KPIs vs target and the main constraint."
+    },
+    {
+      "id": "q35",
+      "sk": "defend",
+      "t": "Defend a recommendation",
+      "type": "sim",
+      "xp": 200,
+      "d": "Claude plays a client who pushes back on the strategy."
+    },
+    {
+      "id": "q36",
+      "sk": "onb",
+      "t": "Escalate a technical issue",
+      "type": "text",
+      "xp": 150,
+      "d": "What was checked, what was ruled out and the next step."
+    }
+  ]
+}

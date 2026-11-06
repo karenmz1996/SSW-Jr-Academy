@@ -1,0 +1,26 @@
+[
+  {
+    "t": "Hi, I’m Drops!",
+    "b": "I’ll be your guide in the Jr AM Academy. Every quest here builds a skill you’ll use with real clients.",
+    "sel": null,
+    "mood": "cheer"
+  },
+  {
+    "t": "This is your path",
+    "b": "Quests open one after another. The glowing one is next: tap it to see the mission, a real example and how it’s graded.",
+    "sel": ".node.current, .node.available",
+    "mood": "happy"
+  },
+  {
+    "t": "Your skills",
+    "b": "Every approved quest levels up a skill. Get all 15 to Proficient and you’re AM Ready.",
+    "sel": ".skills",
+    "mood": "think"
+  },
+  {
+    "t": "Send it and keep going",
+    "b": "Your Sr AM reviews each submission and leaves feedback. You don’t have to wait: the next quest opens as soon as you send. I’ll tell you when it’s approved.",
+    "sel": ".summary .tile:last-child",
+    "mood": "happy"
+  }
+]

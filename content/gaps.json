@@ -1,0 +1,120 @@
+[
+  {
+    "t": "Client-facing standard comms",
+    "lvl": 0,
+    "d": "BOW Updates, Call Recaps and Executive Summaries are written by the Sr AM. Jr AMs appear as owners of action items, not as authors.",
+    "ev": "In the last month, every BOW Update and Call Recap on shared accounts was posted by a Sr AM.",
+    "q": [
+      "q33",
+      "q34",
+      "q51"
+    ]
+  },
+  {
+    "t": "Cross-functional briefs",
+    "lvl": 1,
+    "d": "Brief by AM tasks for Funnels & CRM, CRO and Landing Pages are owned by the Sr AM or co-assigned with the Growth Director.",
+    "ev": "A Jr AM was co-assigned to a CRM Brief by AM, but the brief was written by someone more senior.",
+    "q": [
+      "q24",
+      "q14"
+    ]
+  },
+  {
+    "t": "Starting from performance",
+    "lvl": 1,
+    "d": "New batches start when a senior asks, not from the Jr AM reading the performance report.",
+    "ev": "Typical prompt from a Sr AM: “let’s get the performance report and prep a new batch.”",
+    "q": [
+      "q23",
+      "q42"
+    ]
+  },
+  {
+    "t": "Proactive opportunity spotting",
+    "lvl": 1,
+    "d": "New assets, awards or client changes are spotted by the Sr AM and handed down.",
+    "ev": "A client award and a new site pop-up were both flagged by the Sr AM, who then asked the Jr AM to use them.",
+    "q": [
+      "q43",
+      "q44"
+    ]
+  },
+  {
+    "t": "Execution pace and approvals",
+    "lvl": 2,
+    "d": "Uploads and client approvals sometimes need a senior push. Pending approvals end up in the Sr AM’s BOW Update.",
+    "ev": "“Please upload asap” from a Sr AM, and “we need your approval on the batch” in a client update.",
+    "q": [
+      "q32",
+      "q25"
+    ]
+  },
+  {
+    "t": "Closing the loop",
+    "lvl": 2,
+    "d": "Replies are friendly and fast, but often end at “thank you” without a next step or ETA.",
+    "ev": "Several threads close with “Perfect, thank you!” where the next step was implied but not stated.",
+    "q": [
+      "q31",
+      "q25"
+    ]
+  },
+  {
+    "t": "Tagging and visibility",
+    "lvl": 2,
+    "d": "The right people are not always tagged, so the Sr AM or PM misses context.",
+    "ev": "Sr AM reminder on a thread: “don’t forget to tag me and the Jr AM.”",
+    "q": [
+      "q25",
+      "q13"
+    ]
+  },
+  {
+    "t": "Process compliance",
+    "lvl": 2,
+    "d": "Ops has had to remind Jr AMs about task fields and required attachments.",
+    "ev": "Ops posts to Jr AMs on ClickUp fields and attaching the PM analysis to Creative tasks.",
+    "q": [
+      "q13"
+    ]
+  },
+  {
+    "t": "Spec QA",
+    "lvl": 2,
+    "d": "Formats and placements are occasionally fixed after delivery.",
+    "ev": "Assets had to be re-exported in 9:16 after they were shared.",
+    "q": [
+      "q22"
+    ]
+  },
+  {
+    "t": "Ownership routing",
+    "lvl": 2,
+    "d": "Jr AMs ask who should own a task instead of routing it from a clear map.",
+    "ev": "“Should I assign it to this person or to you?” on a copy-update task.",
+    "q": [
+      "q14"
+    ]
+  },
+  {
+    "t": "Defending a recommendation",
+    "lvl": 0,
+    "d": "When a client challenges strategy, the Sr AM answers with platform logic and how success will be measured.",
+    "ev": "A client pushed back on testing several avatars; the Sr AM replied with the reasoning and kill criteria.",
+    "q": [
+      "q35",
+      "q52"
+    ]
+  },
+  {
+    "t": "Technical escalation and onboarding",
+    "lvl": 0,
+    "d": "Martech escalations and the KickOff-to-Game-Plan sequence are run entirely by the Sr AM.",
+    "ev": "Onboarding tasks (KickOff, accesses, audits, Game Plan) are all assigned to the Sr AM.",
+    "q": [
+      "q36",
+      "q12"
+    ]
+  }
+]

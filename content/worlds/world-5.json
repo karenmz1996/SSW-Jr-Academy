@@ -1,0 +1,33 @@
+{
+  "id": "w5",
+  "icon": "stage",
+  "q": "So shall we take the stage?",
+  "sub": "Presenting",
+  "desc": "Present with confidence, first recorded, then live.",
+  "quests": [
+    {
+      "id": "q51",
+      "sk": "comms",
+      "t": "Monday Clip",
+      "type": "clip",
+      "xp": 150,
+      "d": "In prose, with the numbers framed as on or off target."
+    },
+    {
+      "id": "q52",
+      "sk": "defend",
+      "t": "Present a batch",
+      "type": "clip",
+      "xp": 150,
+      "d": "Walk the client through creatives and the reasoning."
+    },
+    {
+      "id": "q53",
+      "sk": "live",
+      "t": "Final boss: live weekly",
+      "type": "live",
+      "xp": 300,
+      "d": "Run part of a real weekly with your Sr AM as backup."
+    }
+  ]
+}

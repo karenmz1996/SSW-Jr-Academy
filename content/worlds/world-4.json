@@ -1,0 +1,41 @@
+{
+  "id": "w4",
+  "icon": "bars",
+  "q": "So shall we read the numbers?",
+  "sub": "Metrics & insight",
+  "desc": "Read the data, find the constraint and spot opportunities before anyone asks.",
+  "quests": [
+    {
+      "id": "q41",
+      "sk": "metrics",
+      "t": "Applied glossary",
+      "type": "quiz",
+      "xp": 100,
+      "d": "CPM, CTR, CVR, CPL, ROAS, hook and hold rate in real cases."
+    },
+    {
+      "id": "q42",
+      "sk": "perf",
+      "t": "Find the constraint",
+      "type": "doc",
+      "xp": 150,
+      "d": "Is it CPM, CTR, the landing page or the booking step?"
+    },
+    {
+      "id": "q43",
+      "sk": "proact",
+      "t": "Spot the opportunity",
+      "type": "text",
+      "xp": 150,
+      "d": "Find something new in the client’s world and route it."
+    },
+    {
+      "id": "q44",
+      "sk": "proact",
+      "t": "Pitch an angle",
+      "type": "doc",
+      "xp": 200,
+      "d": "Propose a new creative strategy from data and competitors."
+    }
+  ]
+}
