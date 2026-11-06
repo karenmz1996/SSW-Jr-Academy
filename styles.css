@@ -180,7 +180,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .why p{color:var(--ink)}
 .example{border-left:3px solid var(--cyan);background:var(--cyan-soft);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14.5px}
 .field{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:500}
-input[type=text],textarea{font:inherit;font-size:14px;font-weight:400;color:var(--ink);background:var(--tile);border:1px solid var(--line-hi);border-radius:12px;padding:12px 14px;width:100%}
+input[type=text],input[type=url],textarea{font:inherit;font-size:14px;font-weight:400;color:var(--ink);background:var(--tile);border:1px solid var(--line-hi);border-radius:12px;padding:12px 14px;width:100%}
 input::placeholder,textarea::placeholder{color:var(--faint)}
 textarea{min-height:110px;resize:vertical}
 .check{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--tile);cursor:pointer}
@@ -396,3 +396,18 @@ textarea{min-height:110px;resize:vertical}
 .req-i{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13px}
 .req-i span:last-child{color:var(--muted);font-size:12.5px}
 .cu .ck.off i{background:transparent}
+
+/* Required submission field */
+.req-tag{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pink);margin-left:6px}
+.field-hint{font-size:13px;font-weight:400;color:var(--muted)}
+.field-hint.ok{color:var(--cyan)}
+.field-hint.bad{color:var(--pink)}
+input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--pink)}
+
+/* Master wizard graduation */
+.celebrate.master{background:radial-gradient(circle at 50% 35%,rgba(246,240,126,.14),rgba(0,0,0,.86) 60%)}
+.master-card{border-color:rgba(246,240,126,.45);box-shadow:0 0 0 1px rgba(246,240,126,.15),0 30px 80px rgba(0,0,0,.6)}
+.master-card .drops{margin-top:-150px}
+.master-card .stamp{font-size:56px}
+.master-p{margin:0;color:var(--muted);font-size:15px;max-width:34ch}
+.master-p b{color:var(--yellow)}

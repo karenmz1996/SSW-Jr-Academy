@@ -74,6 +74,7 @@ function renderNav(){
   } else {
     h=`<span class="mono nav-label">Sr AM</span>
      <button data-tab="review" aria-current="${S.srTab==='review'}"><span class="nicon">${I.inbox}</span><span>Review queue</span>${n?`<span class="badge">${n}</span>`:'<span></span>'}</button>
+     <button data-tab="quests" aria-current="${S.srTab==='quests'}"><span class="nicon">${I.flag}</span><span>All quests</span><span class="ncount">${allQ.length}</span></button>
      <button data-tab="team" aria-current="${S.srTab==='team'}"><span class="nicon">${I.team}</span><span>Team skills</span><span></span></button>
      <button data-tab="gaps" aria-current="${S.srTab==='gaps'}"><span class="nicon">${I.map}</span><span>Gap map</span><span class="ncount">${GAPS.length}</span></button>`;
   }
@@ -182,13 +183,14 @@ function renderPanel(){
   const see=VIS[q.id]?`<div class="blk"><span class="mono">${q.visLabel||(q.type==='quiz'?'See it':'What you\u2019ll make')}</span><div class="see">${VIS[q.id]()}</div></div>`:'';
   const ex=q.ex?`<div class="blk"><span class="mono">What good looks like · from SSW, anonymized</span><div class="example">${q.ex}</div></div>`:'';
   let body='',foot='';
-  if(S.view==='sr'){
+  const preview=S.view==='sr'&&S.previewMode;
+  if(S.view==='sr'&&!preview){
     body=`${brief}${see}<div class="blk"><span class="mono">Jr AM submission</span><div class="link">${S.subs[q.id]?.v||'—'}</div></div>
      <div class="blk"><span class="mono">Rubric</span>${(q.rubric||[]).map((r,i)=>`<label class="check" for="rb${i}"><input type="checkbox" id="rb${i}" checked> ${r}</label>`).join('')}</div>
      <div class="blk"><span class="mono">Level</span><div class="radio"><label for="lv-meets"><input type="radio" name="lv" id="lv-meets" value="meets" checked> Meets the bar</label><label for="lv-exc"><input type="radio" name="lv" id="lv-exc" value="exceeds"> Exceeds the bar</label></div></div>
      <label class="field" for="fb">Feedback for your Jr AM<textarea id="fb">Strong angle. Add the hook rate from the last batch to justify the format.</textarea></label>`;
     foot=`<span class="hint">Skill: ${sk.n}</span><div style="display:flex;gap:10px"><button class="btn" data-act="changes">Request changes</button><button class="cta" data-act="approve">We shall.</button></div>`;
-  } else if(q.id==='q22'&&s!=='approved'){
+  } else if(q.id==='q22'&&(preview||s!=='approved')){
     const c=S.quiz.checked, ok=c&&CREATIVES.every(x=>x.bad===S.quiz.picked.has(x.id));
     body=`${why}${brief}<div class="blk"><span class="mono">Context for this account</span>${CTX}</div>
      <div class="blk"><span class="mono">The batch \u00b7 tap every piece you would not send</span><div class="ads">${CREATIVES.map(x=>{const p=S.quiz.picked.has(x.id), right=x.bad===p;const cl=c?(right?'right':'wrong'):'';
@@ -197,14 +199,15 @@ function renderPanel(){
       ${c?`<div class="verdict"><b style="color:${right?'var(--cyan)':'var(--pink)'}">${x.bad?'Should not go out':'Good to go'} \u00b7 ${right?'you got it':'missed'}</b>${x.why}</div>`:''}</div>`;}).join('')}</div></div>
      ${c&&!ok?'<div class="state bad"><strong>Almost.</strong><span>Read the verdict under each ad, then try again with a fresh batch view.</span></div>':''}${reward(q,false)}`;
     foot=`<span class="hint">${c?'':S.quiz.picked.size+' flagged \u00b7 '}Auto-graded. Instant feedback.</span>`+(c&&!ok?'<button class="btn" data-act="quizretry">Try again</button>':'<button class="cta wide" data-act="quizcheck">Check my answer</button>');
-  } else if(s==='available'||s==='changes'){
-    const fld=q.type==='text'?'<textarea id="ans" placeholder="Write your answer"></textarea>':'<input type="text" id="ans" placeholder="Paste the link">';
+  } else if(preview||s==='available'||s==='changes'){
+    const fld=q.type==='text'?'<textarea id="ans" placeholder="Write your answer" required aria-describedby="ans-hint"></textarea>':'<input type="url" id="ans" placeholder="Paste the link (ClickUp, Drive, Clip)" required aria-describedby="ans-hint">';
     const rub=(q.rubric||[]);
     body=`${s==='changes'&&S.fb[q.id]?`<div class="state bad"><strong>Your Sr AM requested changes</strong><span>${S.fb[q.id]}</span></div>`:''}${why}${brief}${see}${ex}
-     <label class="field" for="ans">${q.deliver||'Your submission'}${fld}</label>
+     <label class="field" for="ans"><span>${q.deliver||'Your submission'} <em class="req-tag">Required</em></span>${fld}<span class="field-hint" id="ans-hint">${q.type==='text'?'Write your answer to submit.':'Paste a link to submit.'}</span></label>
      ${rub.length?`<div class="blk"><span class="mono">Before you send, check your work</span>${rub.map((r,i)=>`<label class="check" for="sc${i}"><input type="checkbox" id="sc${i}" data-self> ${r}</label>`).join('')}</div>`:''}
      ${reward(q,false)}`;
-    foot=`<span class="hint">Submitting opens the next quest. Approval levels up your skill.</span><button class="cta wide" id="submit-btn" data-act="submit" ${rub.length?'disabled':''}>Shall we?</button>`;
+    foot=preview?`<span class="hint">Preview only. Jr AMs submit from their path.</span><button class="cta wide" disabled>Shall we?</button>`
+      :`<span class="hint">Submitting opens the next quest. Approval levels up your skill.</span><button class="cta wide" id="submit-btn" data-act="submit" disabled>Shall we?</button>`;
   } else if(s==='review'){
     body=`<div class="state rev"><strong>Under review</strong><span>Your Sr AM will review it soon. You can keep going on the next quest meanwhile.</span></div>
      <div class="blk"><span class="mono">Your submission</span><div class="link">${S.subs[q.id]?.v||'—'}</div></div>${why}${see}${reward(q,false)}`;
@@ -216,15 +219,18 @@ function renderPanel(){
    <div class="p-head"><div><span class="mono">Module ${WORLDS.indexOf(w)+1} · ${TYPE[q.type]} · ${q.xp} XP</span><h3 id="p-t">${q.t}</h3>
    <div class="p-chips"><span class="chip">Skill: ${sk.n}</span><span class="chip ${lv>=3?'ok':''}">${LEVELS[lv]}</span></div></div>
    <button class="close" data-act="close" aria-label="Close">${I.x}</button></div>
-   <div class="p-body">${body}</div>${foot?`<div class="p-foot">${foot}</div>`:''}</aside>`;
+   <div class="p-body">${preview?'<div class="state rev"><strong>Sr AM preview</strong><span>This is exactly what a Jr AM sees. Nothing here changes their progress.</span></div>':''}${body}</div>${foot?`<div class="p-foot">${foot}</div>`:''}</aside>`;
 }
 
+function checkMaster(){if(allQ.length&&allQ.every(q=>st(q.id)==='approved')&&!S.masterShown){S.masterShown=true;S.cel.push({master:true});}}
 function queueCel(q,before,nxt){
   const after=skillLevel(q.sk);
   S.cel.push({t:q.t,xp:q.xp,sk:skById(q.sk).n,before:LEVELS[before],after:LEVELS[after],next:nxt?nxt.t:null,reward:q.reward?q.reward.t:null});
+  checkMaster();
 }
 function showCelebration(){
   const c=S.cel[0], root=document.getElementById('cel-root');
+  if(c.master) return showMaster();
   root.innerHTML=`<div class="celebrate" role="dialog" aria-modal="true" aria-label="Quest approved"><canvas id="confetti"></canvas>
    <div class="cel-card">${drops('cheer',112)}<span class="mono">${c.t}</span><span class="stamp">We shall.</span><span class="cel-xp">+${c.xp} XP</span>
    <div class="cel-rows">
@@ -234,19 +240,46 @@ function showCelebration(){
    </div><button class="cta wide" data-act="celdone">Keep going</button></div></div>`;
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) confetti();
 }
-function confetti(){
+function showMaster(){
+  const pv=S.cel[0]&&S.cel[0].preview;
+  const mastered=pv?'\u2014':SKILLS.filter(s=>skillLevel(s.id)===4).length;
+  const proficient=pv?SKILLS.length:SKILLS.filter(s=>skillLevel(s.id)>=3).length;
+  document.getElementById('cel-root').innerHTML=`<div class="celebrate master" role="dialog" aria-modal="true" aria-labelledby="m-t"><canvas id="confetti"></canvas>
+   <div class="cel-card master-card">${drops('wizard',190)}<span class="mono">Jr AM Academy · complete</span>
+   <span class="stamp" id="m-t">Master.</span>
+   <p class="master-p">Every quest, every skill. Drops the Master Wizard declares you <b>AM Ready</b>.</p>
+   <div class="cel-rows">
+    <div class="cel-row"><span>XP earned</span><span>${fmt(total)}</span></div>
+    <div class="cel-row"><span>Skills at Proficient or above</span><span>${proficient} of ${SKILLS.length}</span></div>
+    <div class="cel-row"><span>Skills mastered</span><span>${mastered}</span></div>
+   </div><button class="cta wide" data-act="celdone">So shall we lead?</button></div></div>`;
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) confetti(['#F6F07E','#EFEA81','#E3C25A','#5EEBF5','#ffffff']);
+}
+function confetti(palette){
   const cv=document.getElementById('confetti'); if(!cv)return; const x=cv.getContext('2d');
   cv.width=innerWidth; cv.height=innerHeight;
-  const cols=['#C3D946','#EFEA81','#E7913E','#EA62A4','#5EEBF5'];
+  const cols=palette||['#C3D946','#EFEA81','#E7913E','#EA62A4','#5EEBF5'];
   const P=Array.from({length:120},()=>({x:innerWidth/2,y:innerHeight/2-60,vx:(Math.random()-.5)*14,vy:-Math.random()*12-4,r:Math.random()*6+4,c:cols[Math.random()*5|0],a:Math.random()*6}));
   let f=0;(function t(){if(!document.getElementById('confetti'))return;x.clearRect(0,0,cv.width,cv.height);
    P.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=.2;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore();});
    if(++f<110)requestAnimationFrame(t);else x.clearRect(0,0,cv.width,cv.height);})();
 }
 
+function renderAllQuests(){
+  setHead('All quests','Full access: preview any quest exactly as a Jr AM sees it, without completing the path.');
+  document.getElementById('content').innerHTML=`
+   <section class="hero"><span class="mono">Sr AM · full access</span><h2>Every module, unlocked</h2>
+   <p>Open any quest to review its mission, visuals, example and rubric. Nothing you do here changes a Jr AM’s progress.</p>
+   <div><button class="btn" data-act="gradpreview">Preview the graduation</button></div></section>
+   ${WORLDS.map((w,wi)=>`<div class="section-rule"><span class="mono">Module ${wi+1} · ${w.sub}${w.placeholder?' · coming soon':''}</span></div>
+   <ul class="qlist">${w.quests.map((q,i)=>`<li class="q"><div class="qn"><span>${String(i+1).padStart(2,'0')}</span><small>${q.xp?q.xp+' XP':'Lesson'}</small></div>
+    <div class="qb"><span class="qt">${q.t}</span><span class="qd">${TYPE[q.type]||q.type} · ${q.d}</span></div>
+    <div class="qr">${w.placeholder?'<span class="chip">Coming soon</span>':`<span class="chip">${(SKILLS.find(x=>x.id===q.sk)||{n:''}).n}</span><button class="btn" data-preview="${q.id}">Preview</button>`}</div></li>`).join('')}</ul>`).join('')}`;
+}
+
 function render(){
   renderNav();
-  if(S.view==='jr')renderJr(); else {document.getElementById('cel-root').innerHTML=''; S.srTab==='team'?renderTeam():S.srTab==='gaps'?renderGaps():renderReview();}
+  if(S.view==='jr')renderJr(); else {document.getElementById('cel-root').innerHTML=''; S.srTab==='team'?renderTeam():S.srTab==='gaps'?renderGaps():S.srTab==='quests'?renderAllQuests():renderReview();}
   renderPanel();
 }
 
@@ -257,27 +290,49 @@ document.addEventListener('click',e=>{
   if(t.id==='v-sr'){S.view='sr';S.open=null;return render();}
   if(t.dataset.tab){S.srTab=t.dataset.tab;return render();}
   if(t.dataset.jump){document.getElementById('world-'+t.dataset.jump)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
-  if(t.dataset.open){S.open=t.dataset.open;S.quiz={picked:new Set(),checked:false};return renderPanel();}
+  if(t.dataset.preview){S.open=t.dataset.preview;S.previewMode=true;S.quiz={picked:new Set(),checked:false};return renderPanel();}
+  if(t.dataset.open){S.previewMode=false;S.open=t.dataset.open;S.quiz={picked:new Set(),checked:false};return renderPanel();}
   const a=t.dataset.act; if(!a) return; const id=S.open;
-  if(a==='close'){S.open=null;return renderPanel();}
+  if(a==='close'){S.open=null;S.previewMode=false;return renderPanel();}
+  if(a==='gradpreview'){S.cel.unshift({master:true,preview:true});return showCelebration();}
   if(a==='celdone'){S.cel.shift();document.getElementById('cel-root').innerHTML='';if(S.cel.length)showCelebration();return;}
-  if(a==='submit'){const v=(document.getElementById('ans').value||'').trim();S.subs[id]={v:v||'(example submission)',at:'just now'};S.status[id]='review';unlockNext(id);S.open=null;toast('Sent! Your Sr AM will review it. The next quest is already open.');return render();}
+  if(a==='submit'){if(!submitState().ok)return updateSubmit();const v=document.getElementById('ans').value.trim();S.subs[id]={v,at:'just now'};S.status[id]='review';unlockNext(id);S.open=null;toast('Sent! Your Sr AM will review it. The next quest is already open.');return render();}
   if(a==='approve'){const q=qById(id),b=skillLevel(q.sk);S.fb[id]=(document.getElementById('fb')?.value||'').trim();
     if(document.getElementById('lv-exc')?.checked)S.exceeds[id]=true;S.status[id]='approved';const n=unlockNext(id);
     queueCel(q,b,n||allQ.find(x=>['available','changes'].includes(st(x.id))));S.open=null;toast('Approved. I\u2019ll celebrate it with your Jr AM.','cheer');return render();}
   if(a==='changes'){S.fb[id]=(document.getElementById('fb')?.value||'').trim();S.status[id]='changes';S.notes.push({id,fb:S.fb[id]});S.open=null;toast('Changes requested. I\u2019ll let your Jr AM know.');return render();}
-  if(a==='quizcheck'){S.quiz.checked=true;const ok=CREATIVES.every(x=>x.bad===S.quiz.picked.has(x.id));
+  if(a==='quizcheck'){S.quiz.checked=true;if(S.previewMode)return renderPanel();const ok=CREATIVES.every(x=>x.bad===S.quiz.picked.has(x.id));
     if(ok){const q=qById(id),b=skillLevel(q.sk);S.status[id]='approved';const n=unlockNext(id);queueCel(q,b,n);S.open=null;return render();}
     return renderPanel();}
   if(a==='quizretry'){S.quiz={picked:new Set(),checked:false};return renderPanel();}
 });
+/* A submission needs content: a real link, or a written answer, plus every self-check ticked */
+const LINK_RE=/^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i;
+function submitState(){
+  const f=document.getElementById('ans'); if(!f) return {ok:false,msg:''};
+  const v=f.value.trim(), isText=f.tagName==='TEXTAREA';
+  const checks=[...document.querySelectorAll('[data-self]')], unticked=checks.filter(x=>!x.checked).length;
+  if(!v) return {ok:false,msg:isText?'Write your answer to submit.':'Paste a link to submit.'};
+  if(isText&&v.length<40) return {ok:false,msg:'Add a bit more detail: at least a couple of sentences.'};
+  if(!isText&&!LINK_RE.test(v)) return {ok:false,msg:'That doesn’t look like a link. Paste the full URL.',bad:true};
+  if(unticked) return {ok:false,msg:`Tick ${unticked===1?'the last self-check':'every self-check'} before you send.`};
+  return {ok:true,msg:'Ready to send.'};
+}
+function updateSubmit(){
+  const b=document.getElementById('submit-btn'), h=document.getElementById('ans-hint'), f=document.getElementById('ans'); if(!b) return;
+  const r=submitState(); b.disabled=!r.ok;
+  if(h){h.textContent=r.msg;h.classList.toggle('ok',r.ok);h.classList.toggle('bad',!!r.bad);}
+  if(f) f.setAttribute('aria-invalid',r.bad?'true':'false');
+}
+document.addEventListener('input',e=>{if(e.target.id==='ans')updateSubmit();});
+
 document.addEventListener('change',e=>{
   const id=e.target.dataset?.cre; if(id){e.target.checked?S.quiz.picked.add(id):S.quiz.picked.delete(id);return;}
-  if(e.target.hasAttribute&&e.target.hasAttribute('data-self')){const all=[...document.querySelectorAll('[data-self]')];const b=document.getElementById('submit-btn');if(b)b.disabled=!all.every(x=>x.checked);}
+  if(e.target.hasAttribute&&e.target.hasAttribute('data-self'))updateSubmit();
 });
 document.addEventListener('keydown',e=>{const fl=e.target.closest&&e.target.closest('[data-flag]');if(fl&&(e.key==='Enter'||e.key===' ')){e.preventDefault();fl.click();return;}if(e.key!=='Escape')return;if(S.cel.length&&document.querySelector('.celebrate')){S.cel.shift();document.getElementById('cel-root').innerHTML='';return;}if(S.open){S.open=null;renderPanel();}});
 
-function drops(mood='happy',size=96){return `<img class="drops" src="assets/drops-${['happy','cheer','think'].includes(mood)?mood:'happy'}.webp" width="${size}" style="height:auto" alt="">`;}
+function drops(mood='happy',size=96){return `<img class="drops" src="assets/drops-${['happy','cheer','think','wizard'].includes(mood)?mood:'happy'}.webp" width="${size}" style="height:auto" alt="">`;}
 /* Notifications */
 /* Notes for the Jr AM that wait until they open their view (e.g. changes requested) */
 S.notes=[];

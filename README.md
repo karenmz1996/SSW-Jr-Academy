@@ -18,7 +18,7 @@ content/
   worlds/index.json      Order of the worlds
   worlds/onboarding.json Module 1, a placeholder (coming soon)
   worlds/world-N.json    One file per module, with its quests
-assets/                  Drops (happy, cheer, think) and the SSW logo
+assets/                  Drops (happy, cheer, think, wizard) and the SSW logo
 ```
 
 ## Editing content
@@ -49,6 +49,13 @@ Most changes only touch `content/`. Each quest in a `world-N.json` file looks li
 - A module with `"placeholder": true` shows its lessons as "Coming soon", doesn't count toward XP or AM Ready, and doesn't block the next module. Remove the flag when its content is ready.
 
 Content rules: no client names, no real people, no client data. Examples are anonymized.
+
+## Behaviour notes
+
+- Submissions are required: a link quest needs a valid URL, a written quest needs at least a couple of sentences, and every self-check must be ticked before "Shall we?" turns on.
+- Sr AM view has **All quests**: preview any quest as a Jr AM sees it, without completing the path or changing anyone's progress.
+- Completing every quest shows the Master Wizard graduation. Sr AMs can preview it from All quests.
+- `assets/drops-wizard.webp` is a placeholder cut from a low-res preview; replace it with the full-res export from the Drops mascot Figma file.
 
 ## Run locally
 
