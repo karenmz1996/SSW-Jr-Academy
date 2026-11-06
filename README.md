@@ -55,7 +55,6 @@ Content rules: no client names, no real people, no client data. Examples are ano
 - Submissions are required: a link quest needs a valid URL, a written quest needs at least a couple of sentences, and every self-check must be ticked before "Shall we?" turns on.
 - Sr AM view has **All quests**: preview any quest as a Jr AM sees it, without completing the path or changing anyone's progress.
 - Completing every quest shows the Master Wizard graduation. Sr AMs can preview it from All quests.
-- `assets/drops-wizard.webp` is a placeholder cut from a low-res preview; replace it with the full-res export from the Drops mascot Figma file.
 
 ## Run locally
 
