@@ -16,7 +16,8 @@ content/
   gaps.json              Gap map (Sr AM view): observed gaps and the quests that close them
   tour.json              Drops' onboarding tour steps
   worlds/index.json      Order of the worlds
-  worlds/world-N.json    One file per world, with its quests
+  worlds/onboarding.json Module 1, a placeholder (coming soon)
+  worlds/world-N.json    One file per module, with its quests
 assets/                  Drops (happy, cheer, think) and the SSW logo
 ```
 
@@ -45,6 +46,7 @@ Most changes only touch `content/`. Each quest in a `world-N.json` file looks li
 - `type`: `doc`, `clip`, `quiz`, `text`, `sim` or `live`.
 - `reward.k`: `video`, `template`, `tip` or `unlock`.
 - A visual preview for a quest lives in `js/visuals.js` under `VIS.<quest id>`.
+- A module with `"placeholder": true` shows its lessons as "Coming soon", doesn't count toward XP or AM Ready, and doesn't block the next module. Remove the flag when its content is ready.
 
 Content rules: no client names, no real people, no client data. Examples are anonymized.
 

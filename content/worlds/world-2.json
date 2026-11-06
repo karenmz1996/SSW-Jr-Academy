@@ -107,7 +107,7 @@
       ],
       "reward": {
         "k": "unlock",
-        "t": "Opens World 3",
+        "t": "Opens the Client service module",
         "d": "So shall we talk?"
       }
     }

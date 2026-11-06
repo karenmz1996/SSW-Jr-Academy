@@ -1,5 +1,7 @@
 
 const I={
+ flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>',
+ video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>',
  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>',
  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg>',
  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
@@ -22,7 +24,7 @@ const I={
  gift:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>',
  x:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>'
 };
-const TYPE={doc:'Document',clip:'ClickUp Clip',quiz:'Quiz',text:'Written',sim:'Roleplay',live:'Live'};
+const TYPE={video:'Video + check',doc:'Document',clip:'ClickUp Clip',quiz:'Quiz',text:'Written',sim:'Roleplay',live:'Live'};
 const LEVELS=['Not started','Attempted','Familiar','Proficient','Mastered'];
 
 
@@ -57,7 +59,7 @@ function skillLevel(sid){
 const ready=()=>Math.round(SKILLS.filter(s=>skillLevel(s.id)>=3).length/SKILLS.length*100);
 const readyCount=()=>SKILLS.filter(s=>skillLevel(s.id)>=3).length;
 function unlockNext(id){const i=allQ.findIndex(q=>q.id===id);const n=allQ[i+1];if(n&&st(n.id)==='locked'){S.status[n.id]='available';return n;}return null;}
-function wState(w){const s=w.quests.map(q=>st(q.id));return s.every(x=>x==='approved')?'done':s.some(x=>x!=='locked')?'active':'locked';}
+function wState(w){if(w.placeholder)return 'soon';const s=w.quests.map(q=>st(q.id));return s.every(x=>x==='approved')?'done':s.some(x=>x!=='locked')?'active':'locked';}
 
 function toast(m,mood){notify(m,mood);}
 function setHead(t,s){document.getElementById('h-title').textContent=t;document.getElementById('h-sub').textContent=s;}
@@ -67,8 +69,8 @@ function renderNav(){
   const n=pending().length; let h='';
   if(S.view==='jr'){
     const cw=current()?.w||pending()[0]?.w;
-    h=`<span class="mono nav-label">Your path</span>`+WORLDS.map(w=>{const ws=wState(w);const done=w.quests.filter(q=>st(q.id)==='approved').length;
-      return `<button data-jump="${w.id}" ${ws==='locked'?'disabled':''} aria-current="${cw===w.id}"><span class="nicon">${ws==='locked'?I.lock:I[w.icon]}</span><span>${w.sub}</span><span class="ncount">${done}/${w.quests.length}</span></button>`;}).join('');
+    h=`<span class="mono nav-label">Modules</span>`+WORLDS.map(w=>{const ws=wState(w);const done=w.quests.filter(q=>st(q.id)==='approved').length;
+      return `<button data-jump="${w.id}" ${ws==='locked'?'disabled':''} aria-current="${cw===w.id}"><span class="nicon">${ws==='locked'?I.lock:I[w.icon]}</span><span>${w.sub}</span><span class="ncount">${ws==='soon'?'Soon':done+'/'+w.quests.length}</span></button>`;}).join('');
   } else {
     h=`<span class="mono nav-label">Sr AM</span>
      <button data-tab="review" aria-current="${S.srTab==='review'}"><span class="nicon">${I.inbox}</span><span>Review queue</span>${n?`<span class="badge">${n}</span>`:'<span></span>'}</button>
@@ -96,10 +98,14 @@ function renderJr(){
   const cur=current(), r=ready(), C=2*Math.PI*48;
   const focus=cur?.sk;
   const worlds=WORLDS.map((w,wi)=>{
+    if(w.placeholder) return `<section class="world soon" id="world-${w.id}">
+      <div class="w-head"><div><span class="mono">Module ${wi+1} \u00b7 ${w.sub}</span><h3>${w.q}</h3><p>${w.desc}</p></div><div class="w-prog"><span class="chip">Coming soon</span></div></div>
+      <div class="soon-grid">${w.quests.map(q=>`<div class="soon-card"><span class="soon-ic">${I[q.type]||I.video}</span><div><b>${q.t}</b><p>${q.d}</p></div></div>`).join('')}</div>
+      ${w.note?`<span class="req">${I.flag}${w.note}</span>`:''}</section>`;
     const ws=wState(w), done=w.quests.filter(q=>st(q.id)==='approved').length;
-    const prevLast=wi?WORLDS[wi-1].quests.at(-1):null;
+    const prev=wi?WORLDS[wi-1]:null, prevLast=prev&&!prev.placeholder?prev.quests.at(-1):null;
     return `<section class="world ${ws==='locked'?'locked':''}" id="world-${w.id}">
-      <div class="w-head"><div><span class="mono">World ${wi+1} · ${w.sub}</span><h3>${w.q}</h3><p>${w.desc}</p></div>
+      <div class="w-head"><div><span class="mono">Module ${wi+1} · ${w.sub}</span><h3>${w.q}</h3><p>${w.desc}</p></div>
       <div class="w-prog"><span>${done}/${w.quests.length} approved</span><div class="bar"><i style="width:${done/w.quests.length*100}%"></i></div></div></div>
       ${ws==='locked'&&prevLast?`<span class="req">${I.lock}Opens when you submit “${prevLast.t}”</span>`:''}
       <div class="nodes">${w.quests.map((q,i)=>nodeHtml({...q,w:w.id},i,cur)).join('')}</div></section>`;}).join('');
@@ -207,7 +213,7 @@ function renderPanel(){
      ${S.fb[q.id]?`<div class="blk"><span class="mono">Feedback from your Sr AM</span><p>${S.fb[q.id]}</p></div>`:''}${reward(q,true)}${see}${ex}`;
   }
   root.innerHTML=`<div class="scrim" data-act="close"></div><aside class="panel" role="dialog" aria-modal="true" aria-labelledby="p-t">
-   <div class="p-head"><div><span class="mono">World ${WORLDS.indexOf(w)+1} · ${TYPE[q.type]} · ${q.xp} XP</span><h3 id="p-t">${q.t}</h3>
+   <div class="p-head"><div><span class="mono">Module ${WORLDS.indexOf(w)+1} · ${TYPE[q.type]} · ${q.xp} XP</span><h3 id="p-t">${q.t}</h3>
    <div class="p-chips"><span class="chip">Skill: ${sk.n}</span><span class="chip ${lv>=3?'ok':''}">${LEVELS[lv]}</span></div></div>
    <button class="close" data-act="close" aria-label="Close">${I.x}</button></div>
    <div class="p-body">${body}</div>${foot?`<div class="p-foot">${foot}</div>`:''}</aside>`;
@@ -342,7 +348,7 @@ async function loadJSON(p){const r=await fetch(p);if(!r.ok)throw new Error('Coul
 async function init(){
   const files=await loadJSON('content/worlds/index.json');
   [SKILLS,GAPS,TOUR,WORLDS]=await Promise.all([loadJSON('content/skills.json'),loadJSON('content/gaps.json'),loadJSON('content/tour.json'),Promise.all(files.map(f=>loadJSON('content/worlds/'+f)))]);
-  allQ=WORLDS.flatMap(w=>w.quests.map(q=>({...q,w:w.id})));
+  allQ=WORLDS.filter(w=>!w.placeholder).flatMap(w=>w.quests.map(q=>({...q,w:w.id})));
   total=allQ.reduce((a,q)=>a+q.xp,0);
   render();
 document.getElementById('tut-dog').innerHTML=drops('happy',28);

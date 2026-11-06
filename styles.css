@@ -375,3 +375,13 @@ textarea{min-height:110px;resize:vertical}
 .jrnote-body b{font-size:15px}
 .jrnote-body p{margin:0;color:var(--muted);font-size:14px}
 .jrnote-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+
+/* Placeholder module (coming soon) */
+.world.soon{border-style:dashed;background:transparent}
+.soon-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.soon-card{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;background:var(--tile);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.soon-card b{font-size:15px}
+.soon-card p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+.soon-ic{width:40px;height:40px;border-radius:10px;background:var(--bg);border:1px solid var(--line);color:var(--muted);display:grid;place-items:center}
+.soon-ic svg{width:20px;height:20px}
+@media (max-width:640px){.soon-grid{grid-template-columns:1fr}}
