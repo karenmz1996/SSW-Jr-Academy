@@ -20,7 +20,7 @@
   {
     "t": "Send it and keep going",
     "b": "Your Sr AM reviews each submission and leaves feedback. You don’t have to wait: the next quest opens as soon as you send. I’ll tell you when it’s approved.",
-    "sel": ".summary .tile:last-child",
+    "sel": ".strip .st:last-child",
     "mood": "happy"
   }
 ]

@@ -418,3 +418,62 @@ input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--pink
   -webkit-mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent)}
 .slot-track{display:flex;flex-direction:column;will-change:transform}
 .slot-track span{height:1.25em;line-height:1.25em;display:block}
+
+/* ---------- Calmer layout: compact strip, collapsible modules, skills and sidebar ---------- */
+.strip{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.st{display:flex;flex-direction:column;gap:2px;padding:16px 20px;border-left:1px solid var(--line);min-width:0}
+.st:first-child{border-left:0}
+.st b{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.st span{font-size:13px;color:var(--muted)}
+.st .weeks{margin-top:6px}
+.st .weeks i{width:12px;height:12px;border-radius:4px}
+.st-ready{flex-direction:row;align-items:center;gap:14px}
+.st-ready>div:last-child{display:flex;flex-direction:column;gap:2px}
+.ring.sm{width:48px;height:48px;flex:none}
+.ring.sm svg{width:48px;height:48px;transform:rotate(-90deg)}
+
+.world{padding:0}
+.w-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:0;text-align:left;padding:20px 24px;border-radius:18px}
+.w-toggle:hover{background:rgba(255,255,255,.02)}
+.w-title h3{font-size:19px;margin-top:4px}
+.w-meta{display:flex;align-items:center;gap:12px;flex:none}
+.w-count{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.w-meta .bar{width:90px}
+.chev{color:var(--muted);transition:transform .2s}
+.world.open .chev,.sk-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.world.open>div{padding:0 24px 28px}
+.w-desc{margin:0 0 4px;color:var(--muted);font-size:14px;max-width:62ch}
+.world .nodes{margin-top:18px}
+.world.closed.locked .w-title h3{color:var(--muted)}
+.lockchip{display:inline-flex;align-items:center;gap:6px;border-style:dashed}
+.lockchip svg{width:12px;height:12px}
+
+.learn.skills-closed{grid-template-columns:minmax(0,1fr) 300px}
+.sk-toggle{width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;background:none;border:0;text-align:left;padding:0;color:inherit}
+.sk-toggle h3{font-size:18px}
+.sk-toggle p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+.sk-more{font-size:13.5px;color:var(--cyan);padding:2px 0;align-self:flex-start}
+.skills{gap:12px}
+
+/* Sidebar collapse to an icon rail */
+.collapse-btn svg{flex:none;color:var(--muted)}
+.app{transition:grid-template-columns .2s}
+.app.side-collapsed{grid-template-columns:76px 1fr}
+.side-collapsed .brand{padding:18px 12px;justify-content:center}
+.side-collapsed .brand>div:last-child,
+.side-collapsed .nav-label,
+.side-collapsed .nav button>span:not(.nicon):not(.badge),
+.side-collapsed .tut-label,
+.side-collapsed .collapse-btn span,
+.side-collapsed .side-foot .small{display:none}
+.side-collapsed .nav{padding:12px 8px}
+.side-collapsed .nav button{grid-template-columns:1fr;justify-items:center;padding:12px 0;position:relative}
+.side-collapsed .nav .badge{position:absolute;top:4px;right:6px;min-width:16px;height:16px;font-size:10px}
+.side-collapsed .side-foot{padding:14px 8px;align-items:center}
+.side-collapsed .tut{padding:6px;justify-content:center;width:44px}
+.side-collapsed .seg{flex-direction:column;border-radius:14px;width:56px}
+.side-collapsed .seg button{font-size:11px;padding:6px 2px;border-radius:10px}
+
+@media (max-width:1180px){.learn.skills-closed{grid-template-columns:1fr}.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.st:nth-child(3){border-left:0}.st:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:860px){.collapse-btn{display:none}.app.side-collapsed{grid-template-columns:minmax(0,1fr)}.w-meta .bar{display:none}.w-toggle{padding:16px 18px}.world.open>div{padding:0 18px 22px}}
+@media (max-width:520px){.strip{grid-template-columns:1fr}.st{border-left:0;border-top:1px solid var(--line)}.st:first-child{border-top:0}}

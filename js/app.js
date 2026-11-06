@@ -70,7 +70,7 @@ function renderNav(){
   if(S.view==='jr'){
     const cw=current()?.w||pending()[0]?.w;
     h=`<span class="mono nav-label">Modules</span>`+WORLDS.map(w=>{const ws=wState(w);const done=w.quests.filter(q=>st(q.id)==='approved').length;
-      return `<button data-jump="${w.id}" ${ws==='locked'?'disabled':''} aria-current="${cw===w.id}"><span class="nicon">${ws==='locked'?I.lock:I[w.icon]}</span><span>${w.sub}</span><span class="ncount">${ws==='soon'?'Soon':done+'/'+w.quests.length}</span></button>`;}).join('');
+      return `<button data-jump="${w.id}" title="${w.sub}" ${ws==='locked'?'disabled':''} aria-current="${cw===w.id}"><span class="nicon">${ws==='locked'?I.lock:I[w.icon]}</span><span>${w.sub}</span><span class="ncount">${ws==='soon'?'Soon':done+'/'+w.quests.length}</span></button>`;}).join('');
   } else {
     h=`<span class="mono nav-label">Sr AM</span>
      <button data-tab="review" aria-current="${S.srTab==='review'}"><span class="nicon">${I.inbox}</span><span>Review queue</span>${n?`<span class="badge">${n}</span>`:'<span></span>'}</button>
@@ -94,35 +94,48 @@ function nodeHtml(q,i,cur){
     <span class="n-title">${q.t}</span><span class="n-meta">${TYPE[q.type]} · ${q.xp} XP</span></div>`;
 }
 
+/* UI preferences: what's collapsed. Per viewer, kept in browser storage when available. */
+const UI=(()=>{let v={};try{v=JSON.parse(localStorage.getItem('ssw-ui')||'{}')}catch(_){};return Object.assign({side:false,skills:false,mods:{}},v);})();
+function saveUI(){try{localStorage.setItem('ssw-ui',JSON.stringify(UI))}catch(_){}}
+function modOpen(w){if(w.id in UI.mods)return UI.mods[w.id];const cur=current()||pending()[0];return !w.placeholder&&cur&&cur.w===w.id;}
+const CHEV='<svg class="chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+
 function renderJr(){
   setHead('Your path','From Jr AM to AM Ready, one quest at a time.');
-  const cur=current(), r=ready(), C=2*Math.PI*48;
+  const cur=current(), r=ready(), C=2*Math.PI*20;
   const focus=cur?.sk;
   const worlds=WORLDS.map((w,wi)=>{
-    if(w.placeholder) return `<section class="world soon" id="world-${w.id}">
-      <div class="w-head"><div><span class="mono">Module ${wi+1} \u00b7 ${w.sub}</span><h3>${w.q}</h3><p>${w.desc}</p></div><div class="w-prog"><span class="chip">Coming soon</span></div></div>
-      <div class="soon-grid">${w.quests.map(q=>`<div class="soon-card"><span class="soon-ic">${I[q.type]||I.video}</span><div><b>${q.t}</b><p>${q.d}</p></div></div>`).join('')}</div>
-      ${w.note?`<span class="req">${I.flag}${w.note}</span>`:''}</section>`;
-    const ws=wState(w), done=w.quests.filter(q=>st(q.id)==='approved').length;
+    const open=modOpen(w), ws=wState(w);
+    const done=w.placeholder?0:w.quests.filter(q=>st(q.id)==='approved').length;
     const prev=wi?WORLDS[wi-1]:null, prevLast=prev&&!prev.placeholder?prev.quests.at(-1):null;
-    return `<section class="world ${ws==='locked'?'locked':''}" id="world-${w.id}">
-      <div class="w-head"><div><span class="mono">Module ${wi+1} · ${w.sub}</span><h3>${w.q}</h3><p>${w.desc}</p></div>
-      <div class="w-prog"><span>${done}/${w.quests.length} approved</span><div class="bar"><i style="width:${done/w.quests.length*100}%"></i></div></div></div>
-      ${ws==='locked'&&prevLast?`<span class="req">${I.lock}Opens when you submit “${prevLast.t}”</span>`:''}
-      <div class="nodes">${w.quests.map((q,i)=>nodeHtml({...q,w:w.id},i,cur)).join('')}</div></section>`;}).join('');
+    const status=w.placeholder?'<span class="chip">Coming soon</span>':ws==='locked'?`<span class="chip lockchip">${I.lock}Locked</span>`:ws==='done'?'<span class="chip ok">Complete</span>':'';
+    const head=`<button class="w-toggle" data-mod="${w.id}" aria-expanded="${open}" aria-controls="mod-${w.id}">
+      <div class="w-title"><span class="mono">Module ${wi+1} · ${w.sub}</span><h3>${w.q}</h3></div>
+      <div class="w-meta">${status}${w.placeholder?'':`<span class="w-count">${done}/${w.quests.length}</span><span class="bar"><i style="width:${done/w.quests.length*100}%"></i></span>`}${CHEV}</div></button>`;
+    let body='';
+    if(open){
+      body=w.placeholder
+        ? `<p class="w-desc">${w.desc}</p><div class="soon-grid">${w.quests.map(q=>`<div class="soon-card"><span class="soon-ic">${I[q.type]||I.video}</span><div><b>${q.t}</b><p>${q.d}</p></div></div>`).join('')}</div>${w.note?`<span class="req">${I.flag}${w.note}</span>`:''}`
+        : `<p class="w-desc">${w.desc}</p>${ws==='locked'&&prevLast?`<span class="req">${I.lock}Opens when you submit “${prevLast.t}”</span>`:''}<div class="nodes">${w.quests.map((q,i)=>nodeHtml({...q,w:w.id},i,cur)).join('')}</div>`;
+    }
+    return `<section class="world ${w.placeholder?'soon':''} ${ws==='locked'?'locked':''} ${open?'open':'closed'}" id="world-${w.id}">${head}<div id="mod-${w.id}">${body}</div></section>`;}).join('');
+  const skillsOpen=UI.skills;
+  const skillRows=(skillsOpen?SKILLS:SKILLS.filter(s=>s.id===focus)).map(s=>{const l=skillLevel(s.id);return `<div class="sk ${s.id===focus?'focus':''}"><span class="sk-name">${s.n}</span><span class="sk-lvl">${LEVELS[l]}</span>${bars(l)}</div>`;}).join('');
   document.getElementById('content').innerHTML=`
-   <div class="summary">
-    <div class="tile ready"><div class="ring"><svg viewBox="0 0 112 112"><circle cx="56" cy="56" r="48" fill="none" stroke="var(--line-hi)" stroke-width="10"/><circle cx="56" cy="56" r="48" fill="none" stroke="var(--cyan)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-r/100)}"/></svg><span class="v">${r}%</span></div>
-     <div><span class="mono">AM Ready</span><h3>${readyCount()} of ${SKILLS.length} skills at Proficient or above</h3><p>Approved quests level up your skills. Exceed the bar on all of a skill’s quests to master it.</p></div></div>
-    <div class="tile"><span class="lbl">Weekly streak</span><span class="num">${S.streak}</span><span class="sub">weeks in a row</span><div class="weeks" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<S.streak?'on':''}"></i>`).join('')}</div><span class="note">One quest a week keeps it going.</span></div>
-    <div class="tile"><span class="lbl">XP earned</span><span class="num">${fmt(earned())}</span><span class="sub">of ${fmt(total)} XP</span></div>
-    <div class="tile"><span class="lbl">Under review</span><span class="num">${pending().length}</span><span class="sub">with your Sr AM</span><span class="note">You can keep going meanwhile.</span></div>
+   <div class="strip">
+    <div class="st st-ready"><div class="ring sm"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="var(--line-hi)" stroke-width="5"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-r/100)}"/></svg></div>
+     <div><b>${r}% AM Ready</b><span>${readyCount()} of ${SKILLS.length} skills at Proficient+</span></div></div>
+    <div class="st"><b>${S.streak} weeks</b><span>streak</span><div class="weeks" aria-hidden="true">${[0,1,2,3,4,5].map(i=>`<i class="${i<S.streak?'on':''}"></i>`).join('')}</div></div>
+    <div class="st"><b>${fmt(earned())} XP</b><span>of ${fmt(total)}</span></div>
+    <div class="st"><b>${pending().length} in review</b><span>keep going meanwhile</span></div>
    </div>
-   <div class="learn">
+   <div class="learn ${skillsOpen?'':'skills-closed'}">
     <div class="path">${worlds}</div>
-    <aside class="skills card"><div class="card-head" style="margin:0"><h3>Your skills</h3><p>${cur?`Your next quest builds <b style="color:var(--yellow)">${skById(focus).n}</b>.`:'Every quest builds one of these.'}</p></div>
-     <div class="lv-legend"><span><i style="background:var(--muted)"></i>Attempted</span><span><i style="background:var(--cyan)"></i>Familiar · Proficient</span><span><i style="background:var(--yellow)"></i>Mastered</span></div>
-     <div class="sk-list">${SKILLS.map(s=>{const l=skillLevel(s.id);return `<div class="sk ${s.id===focus?'focus':''}"><span class="sk-name">${s.n}</span><span class="sk-lvl">${LEVELS[l]}</span>${bars(l)}</div>`;}).join('')}</div>
+    <aside class="skills card">
+     <button class="sk-toggle" data-skills aria-expanded="${skillsOpen}"><div><h3>Your skills</h3><p>${cur?`Next quest builds <b style="color:var(--yellow)">${skById(focus).n}</b>`:'Every quest builds one of these'}</p></div>${CHEV}</button>
+     ${skillsOpen?'<div class="lv-legend"><span><i style="background:var(--muted)"></i>Attempted</span><span><i style="background:var(--cyan)"></i>Familiar · Proficient</span><span><i style="background:var(--yellow)"></i>Mastered</span></div>':''}
+     <div class="sk-list">${skillRows}</div>
+     ${skillsOpen?'':`<button class="link-btn sk-more" data-skills>Show all ${SKILLS.length} skills</button>`}
     </aside>
    </div>`;
   if(S.cel.length) showCelebration();
@@ -303,12 +316,19 @@ function render(){
 }
 
 document.addEventListener('click',e=>{
+  const m=e.target.closest('[data-mod]'); if(m){const w=WORLDS.find(x=>x.id===m.dataset.mod);UI.mods[w.id]=!modOpen(w);saveUI();return renderJr();}
+  if(e.target.closest('[data-skills]')){UI.skills=!UI.skills;saveUI();return renderJr();}
+  if(e.target.closest('[data-side]')){UI.side=!UI.side;saveUI();applySide();return;}
+},true);
+function applySide(){document.querySelector('.app').classList.toggle('side-collapsed',UI.side);const b=document.querySelector('[data-side]');if(b){b.setAttribute('aria-expanded',String(!UI.side));b.querySelector('span').textContent=UI.side?'Expand':'Collapse';}}
+
+document.addEventListener('click',e=>{
   const fl=e.target.closest('[data-flag]');if(fl){if(S.quiz.checked)return;const id=fl.dataset.flag;S.quiz.picked.has(id)?S.quiz.picked.delete(id):S.quiz.picked.add(id);return renderPanel();}
   const t=e.target.closest('button,[data-act]'); if(!t||t.disabled) return;
   if(t.id==='v-jr'){document.getElementById('toast-root').innerHTML='';S.view='jr';S.open=null;return render();}
   if(t.id==='v-sr'){S.view='sr';S.open=null;return render();}
   if(t.dataset.tab){S.srTab=t.dataset.tab;return render();}
-  if(t.dataset.jump){document.getElementById('world-'+t.dataset.jump)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
+  if(t.dataset.jump){const jw=WORLDS.find(x=>x.id===t.dataset.jump);if(jw&&!modOpen(jw)){UI.mods[jw.id]=true;saveUI();renderJr();}document.getElementById('world-'+t.dataset.jump)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
   if(t.dataset.preview){S.open=t.dataset.preview;S.previewMode=true;S.quiz={picked:new Set(),checked:false};return renderPanel();}
   if(t.dataset.open){S.previewMode=false;S.open=t.dataset.open;S.quiz={picked:new Set(),checked:false};return renderPanel();}
   const a=t.dataset.act; if(!a) return; const id=S.open;
@@ -422,6 +442,7 @@ async function loadJSON(p){const r=await fetch(p);if(!r.ok)throw new Error('Coul
 async function init(){
   const files=await loadJSON('content/worlds/index.json');
   [SKILLS,GAPS,TOUR,WORLDS]=await Promise.all([loadJSON('content/skills.json'),loadJSON('content/gaps.json'),loadJSON('content/tour.json'),Promise.all(files.map(f=>loadJSON('content/worlds/'+f)))]);
+  applySide();
   allQ=WORLDS.filter(w=>!w.placeholder).flatMap(w=>w.quests.map(q=>({...q,w:w.id})));
   total=allQ.reduce((a,q)=>a+q.xp,0);
   render();
