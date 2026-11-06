@@ -119,6 +119,7 @@ function renderJr(){
     </aside>
    </div>`;
   if(S.cel.length) showCelebration();
+  else if(S.notes.length) showNote();
 }
 
 function qRow(q,i){return `<li class="q"><div class="qn"><span>${String(i+1).padStart(2,'0')}</span><small>${q.xp} XP</small></div>
@@ -246,7 +247,7 @@ function render(){
 document.addEventListener('click',e=>{
   const fl=e.target.closest('[data-flag]');if(fl){if(S.quiz.checked)return;const id=fl.dataset.flag;S.quiz.picked.has(id)?S.quiz.picked.delete(id):S.quiz.picked.add(id);return renderPanel();}
   const t=e.target.closest('button,[data-act]'); if(!t||t.disabled) return;
-  if(t.id==='v-jr'){S.view='jr';S.open=null;return render();}
+  if(t.id==='v-jr'){document.getElementById('toast-root').innerHTML='';S.view='jr';S.open=null;return render();}
   if(t.id==='v-sr'){S.view='sr';S.open=null;return render();}
   if(t.dataset.tab){S.srTab=t.dataset.tab;return render();}
   if(t.dataset.jump){document.getElementById('world-'+t.dataset.jump)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return;}
@@ -258,7 +259,7 @@ document.addEventListener('click',e=>{
   if(a==='approve'){const q=qById(id),b=skillLevel(q.sk);S.fb[id]=(document.getElementById('fb')?.value||'').trim();
     if(document.getElementById('lv-exc')?.checked)S.exceeds[id]=true;S.status[id]='approved';const n=unlockNext(id);
     queueCel(q,b,n||allQ.find(x=>['available','changes'].includes(st(x.id))));S.open=null;toast('Approved. I\u2019ll celebrate it with your Jr AM.','cheer');return render();}
-  if(a==='changes'){S.fb[id]=(document.getElementById('fb')?.value||'').trim();S.status[id]='changes';S.open=null;toast('Changes requested. Your Jr AM will see your feedback.');return render();}
+  if(a==='changes'){S.fb[id]=(document.getElementById('fb')?.value||'').trim();S.status[id]='changes';S.notes.push({id,fb:S.fb[id]});S.open=null;toast('Changes requested. I\u2019ll let your Jr AM know.');return render();}
   if(a==='quizcheck'){S.quiz.checked=true;const ok=CREATIVES.every(x=>x.bad===S.quiz.picked.has(x.id));
     if(ok){const q=qById(id),b=skillLevel(q.sk);S.status[id]='approved';const n=unlockNext(id);queueCel(q,b,n);S.open=null;return render();}
     return renderPanel();}
@@ -272,6 +273,22 @@ document.addEventListener('keydown',e=>{const fl=e.target.closest&&e.target.clos
 
 function drops(mood='happy',size=96){return `<img class="drops" src="assets/drops-${['happy','cheer','think'].includes(mood)?mood:'happy'}.webp" width="${size}" style="height:auto" alt="">`;}
 /* Notifications */
+/* Notes for the Jr AM that wait until they open their view (e.g. changes requested) */
+S.notes=[];
+function showNote(){
+  const n=S.notes[0], q=qById(n.id), root=document.getElementById('note-root');
+  const fb=n.fb?(n.fb.length>180?n.fb.slice(0,177)+'…':n.fb):'';
+  root.innerHTML=`<div class="jrnote" role="alertdialog" aria-labelledby="note-t" aria-describedby="note-b">${drops('think',64)}
+   <div class="jrnote-body"><span class="mono">Drops · changes requested</span><b id="note-t">Your Sr AM has notes on “${q.t}”</b>
+   <p id="note-b">${fb?`“${fb}”`:'Open the quest to see what to adjust.'}</p>
+   <div class="jrnote-actions"><button class="btn" data-note="later">Later</button><button class="cta" data-note="open">Open quest</button></div></div></div>`;
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-note]'); if(!t) return;
+  const n=S.notes.shift(); document.getElementById('note-root').innerHTML='';
+  if(t.dataset.note==='open'&&n){S.open=n.id;renderPanel();}
+  else if(S.notes.length) showNote();
+},true);
 function notify(msg,mood='happy'){
   const r=document.getElementById('toast-root');
   r.innerHTML=`<div class="dnote" role="status">${drops(mood,46)}<div><b>Drops</b><span>${msg}</span></div></div>`;
