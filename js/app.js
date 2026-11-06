@@ -34,10 +34,10 @@ const OBS=['Not seen yet','With prompting','Inconsistent','Consistent'];
 
 
 const S={view:'jr',srTab:'review',open:null,streak:3,
- status:{q11:'approved',q12:'approved',q13:'approved',q14:'approved',q21:'review',q22:'available'},
- exceeds:{q11:true},
+ status:{q21:'review',q22:'available'},
+ exceeds:{},
  subs:{q21:{v:'ssw.clickup.com/t/batch-briefing-november (example)',at:'2 h ago'}},
- fb:{q11:'Very clear funnel, and you named the creative approver. That’s the bar.'},
+ fb:{},
  quiz:{picked:new Set(),checked:false},cel:[]};
 
 let SKILLS=[],WORLDS=[],GAPS=[],TOUR=[],allQ=[],total=0;
@@ -167,7 +167,7 @@ function renderGaps(){
    <div class="section-rule"><span class="mono">Gaps and the quests that close them</span></div>
    <div class="gaps">${GAPS.map(g=>`<article class="gap"><div><h4>${g.t}</h4><p>${g.d}</p><div class="ev">${g.ev}</div></div>
     <div class="gap-side"><div class="lvl">${[0,1,2,3].map(i=>`<i class="${i<=g.lvl?'on':''}"></i>`).join('')}</div><span class="lvl-name">${OBS[g.lvl]}</span>
-    <div class="tags">${g.q.map(id=>`<span class="tag">${qById(id).t}</span>`).join('')}</div></div></article>`).join('')}</div>`;
+    <div class="tags">${g.q.map(id=>`<span class="tag">${(WORLDS.flatMap(w=>w.quests).find(q=>q.id===id)||{t:id}).t}</span>`).join('')}</div></div></article>`).join('')}</div>`;
 }
 
 function reward(q,unl){if(!q.reward)return'';const r=q.reward;

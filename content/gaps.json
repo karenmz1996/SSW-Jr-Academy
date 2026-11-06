@@ -17,7 +17,7 @@
     "ev": "A Jr AM was co-assigned to a CRM Brief by AM, but the brief was written by someone more senior.",
     "q": [
       "q24",
-      "q14"
+      "o4"
     ]
   },
   {
@@ -67,7 +67,7 @@
     "ev": "Sr AM reminder on a thread: “don’t forget to tag me and the Jr AM.”",
     "q": [
       "q25",
-      "q13"
+      "o1"
     ]
   },
   {
@@ -76,7 +76,7 @@
     "d": "Ops has had to remind Jr AMs about task fields and required attachments.",
     "ev": "Ops posts to Jr AMs on ClickUp fields and attaching the PM analysis to Creative tasks.",
     "q": [
-      "q13"
+      "o1"
     ]
   },
   {
@@ -94,7 +94,7 @@
     "d": "Jr AMs ask who should own a task instead of routing it from a clear map.",
     "ev": "“Should I assign it to this person or to you?” on a copy-update task.",
     "q": [
-      "q14"
+      "o4"
     ]
   },
   {
@@ -108,13 +108,13 @@
     ]
   },
   {
-    "t": "Technical escalation and onboarding",
+    "t": "Technical escalation",
     "lvl": 0,
-    "d": "Martech escalations and the KickOff-to-Game-Plan sequence are run entirely by the Sr AM.",
-    "ev": "Onboarding tasks (KickOff, accesses, audits, Game Plan) are all assigned to the Sr AM.",
+    "d": "Martech escalations are handled by the Sr AM. Jr AMs should know how an account runs, and be able to report an issue clearly.",
+    "ev": "Escalations to tools like Zapier or a CRM vendor are written by the Sr AM.",
     "q": [
       "q36",
-      "q12"
+      "o5"
     ]
   }
 ]

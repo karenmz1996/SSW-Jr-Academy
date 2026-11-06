@@ -4,12 +4,38 @@
   "placeholder": true,
   "q": "So shall we get started?",
   "sub": "Onboarding",
-  "desc": "Your first days at SSW: the tools we live in, your clients and how your pod works. Each lesson is a short video plus a quick check.",
+  "desc": "Your first days at SSW: the tools we live in, your clients, how your pod works and how an account runs. Each lesson is a short video plus a quick check. The goal is to understand, not to execute.",
   "note": "Coming soon. Jr AMs who are already onboarded start at Module 2.",
   "quests": [
-    { "id": "o1", "t": "Intro to ClickUp", "type": "video", "d": "Spaces, folders and lists, task templates, statuses, and the fields every task needs." },
-    { "id": "o2", "t": "Intro to Slack", "type": "video", "d": "Client vs internal vs pod channels, who to tag, and the BOW Update and Call Recap formats." },
-    { "id": "o3", "t": "Meet your clients", "type": "video", "d": "Each account in one page: offer, goal, contacts and where to find the Account Snapshot in the Hub." },
-    { "id": "o4", "t": "How your pod works", "type": "video", "d": "Growth Director, Sr AM, Performance Lead, Performance Marketer and Jr AM: who owns what." }
+    {
+      "id": "o1",
+      "t": "Intro to ClickUp",
+      "type": "video",
+      "d": "Spaces, folders and lists, task templates and statuses, the fields every task and subtask needs, and what to attach for each team."
+    },
+    {
+      "id": "o2",
+      "t": "Intro to Slack",
+      "type": "video",
+      "d": "Client vs internal vs pod channels, who to tag and when, and how BOW Updates and Call Recaps look."
+    },
+    {
+      "id": "o3",
+      "t": "Meet your clients",
+      "type": "video",
+      "d": "Each of your accounts in one page: what they sell, to whom, the funnel, the KPI that matters and who decides. Where to find it in the Hub."
+    },
+    {
+      "id": "o4",
+      "t": "How your pod works",
+      "type": "video",
+      "d": "Growth Director, Sr AM, Performance Lead, Performance Marketer and Jr AM: who owns what, and which team handles each kind of request."
+    },
+    {
+      "id": "o5",
+      "t": "How an account runs",
+      "type": "video",
+      "d": "The steps from KickOff to Game Plan and the weekly rhythm after it: what happens at each step and where you come in."
+    }
   ]
 }

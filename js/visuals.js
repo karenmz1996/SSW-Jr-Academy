@@ -1,4 +1,5 @@
 /* Visual previews and the "First look" ad mockups. Each VIS entry is keyed by quest id. */
+/* o1, o3, o4 and o5 are ready for the Onboarding lessons once that module stops being a placeholder. */
 const PLUM='#4B2A6B', BLUSH='#F3C9D3';
 const mk=(bg,fg)=>`<span class="mk" style="background:${bg};color:${fg}">N</span>`;
 const postHead=(name,bg=PLUM,fg=BLUSH)=>`<div class="post-h">${mk(bg,fg)}<div><b>${name}</b><small>Sponsored</small></div></div>`;
@@ -35,24 +36,24 @@ const CTX=`<div class="ctx-strip">
  <div class="ctx"><b>Rules</b>Feed: 1:1 or 4:5. Stories and Reels: 9:16. Claims about results need “Results may vary.”</div></div>`;
 
 const VIS={
- q11:()=>`<div class="docm"><h5>Account map · example account</h5>
+ o3:()=>`<div class="docm"><h5>Account map · example account</h5>
   <div class="row"><span>Offer</span><span>High-ticket telehealth coaching for men 40–65</span></div>
   <div class="row"><span>ICP</span><span>Executives who’ve tried gyms and diets, want a supervised plan</span></div>
   <div class="row"><span>Funnel</span><span class="chips"><i>Meta ad</i>→<i>VSL</i>→<i>Application</i>→<i>Sales call</i>→<i>Sale</i></span></div>
   <div class="row"><span>Primary KPI</span><span><span class="hl-y">Sales</span>, CAC floor tied to 90-day break-even</span></div>
   <div class="row"><span>Stakeholders</span><span>Founder decides and approves creatives · COO closes · CSM tracks health</span></div></div>`,
- q12:()=>`<div class="tl">
+ o5:()=>`<div class="tl">
   <div><span class="d">Pre-kickoff</span><b>Access & schedule</b>Verify platform access, share it with cross-functionals, book KickOff.</div>
   <div><span class="d">Day 1</span><b>KickOff</b>Recap, recording and next steps the same day.<span class="hub">Date → Hub</span></div>
   <div><span class="d">Day 2</span><b>Internal KickOff</b>Recap and audit roadmap. Audit tasks in ClickUp.</div>
   <div><span class="d">Days 3–8</span><b>Audits</b>Review each audit, then share it with the client.</div>
   <div><span class="d">Day 10</span><b>Game Plan</b>30/60/90 plan and recap.<span class="hub">Date → Hub (triggers NPS)</span></div></div>`,
- q13:()=>`<div class="cu"><span class="t">Example account — Create first batch of statics</span>
+ o1:()=>`<div class="cu"><span class="t">Example account — Create first batch of statics</span>
   <div class="fields"><span class="f req"><b>Client</b>Example account</span><span class="f req"><b>Department</b>Creative</span><span class="f req"><b>Pod</b>Gamma</span><span class="f"><b>Status</b>Backlog</span></div>
   <span class="att">\u{1F4CE} best-performing-ads-analysis.xlsx</span>
   <div class="sub"><span style="color:#777;font-size:11px">SUBTASK</span><span>Brief by Creative Strategy</span><div class="fields"><span class="f req"><b>Client</b>Example account</span><span class="f req"><b>Department</b>Creative</span><span class="f req"><b>Pod</b>Gamma</span></div></div></div>
   <p class="qd" style="margin:10px 0 0">Highlighted fields are the ones Ops checks. The subtask needs them too.</p>`,
- q14:()=>`<div class="teams">
+ o4:()=>`<div class="teams">
   <div><b>Creative</b>Angles, concepts, batch strategy</div><div><b>Copy</b>Ad copy, emails, automation text</div><div><b>Design</b>Statics, carousels, edits</div><div><b>Funnels & CRM</b>Pipelines, automations, forms</div>
   <div><b>CRO</b>Landing page tests</div><div><b>Martech</b>Tracking, CAPI, integrations</div><div><b>Performance</b>Campaigns, budgets, reporting</div><div><b>You, the AM</b>Create the task and own the follow-through</div></div>
   <div class="own"><span>AM creates the task</span>→<span>Team writes the brief and executes</span>→<span>AM QAs and tells the client</span></div>`,

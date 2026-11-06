@@ -1,21 +1,5 @@
 [
   {
-    "id": "acct",
-    "n": "Account knowledge"
-  },
-  {
-    "id": "onb",
-    "n": "Onboarding & escalation"
-  },
-  {
-    "id": "proc",
-    "n": "Process & ClickUp"
-  },
-  {
-    "id": "route",
-    "n": "Ownership routing"
-  },
-  {
     "id": "brief",
     "n": "Creative briefing"
   },
@@ -46,6 +30,10 @@
   {
     "id": "defend",
     "n": "Defending a recommendation"
+  },
+  {
+    "id": "onb",
+    "n": "Technical escalation"
   },
   {
     "id": "metrics",
