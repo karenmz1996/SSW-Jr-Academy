@@ -13,7 +13,7 @@
   },
   {
     "t": "Your skills",
-    "b": "Every approved quest levels up a skill. Get all 12 to Proficient and you’re AM Ready.",
+    "b": "Every approved quest levels up a skill. Get every one to Proficient and you’re AM Ready.",
     "sel": ".skills",
     "mood": "think"
   },

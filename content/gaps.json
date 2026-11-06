@@ -44,10 +44,19 @@
     "t": "Execution pace and approvals",
     "lvl": 2,
     "d": "Uploads and client approvals sometimes need a senior push. Pending approvals end up in the Sr AM’s BOW Update.",
-    "ev": "“Please upload asap” from a Sr AM, and “we need your approval on the batch” in a client update.",
+    "ev": "“Please upload asap” from a Sr AM, and “we need your approval on the batch” in a client update. Client nudges are often a bare “any comments on these?” without a date or what’s blocked.",
     "q": [
       "q32",
       "q25"
+    ]
+  },
+  {
+    "t": "Capacity and priorities",
+    "lvl": 1,
+    "d": "Deadlines get promised to the client before checking the Creative team’s capacity, and the priority field in ClickUp is often left empty.",
+    "ev": "The Creative lead asked a Jr AM not to add next-day tasks or commit dates to the client before checking capacity together, and to fill in priority on every ask.",
+    "q": [
+      "q26"
     ]
   },
   {
@@ -58,6 +67,16 @@
     "q": [
       "q31",
       "q25"
+    ]
+  },
+  {
+    "t": "Follow-through after launch",
+    "lvl": 2,
+    "d": "Once a batch is approved, nobody confirms it went live, shows up in the report, or that the task carries the latest client info.",
+    "ev": "A Creative strategist asked whether last batch’s AI UGC videos were ever tested, because they weren’t in the report or Ads Manager.",
+    "q": [
+      "q27",
+      "q31"
     ]
   },
   {
@@ -91,17 +110,17 @@
   {
     "t": "Ownership routing",
     "lvl": 2,
-    "d": "Jr AMs ask who should own a task instead of routing it from a clear map.",
-    "ev": "“Should I assign it to this person or to you?” on a copy-update task.",
+    "d": "Jr AMs ask where a task goes, which template to use or which meeting to join, instead of routing it from a clear map.",
+    "ev": "Recurring questions like “should this task go in the CRO or the LP space?”, “is there a template we should use?” and “which alignment should we join?”",
     "q": [
       "o4"
     ]
   },
   {
     "t": "Defending a recommendation",
-    "lvl": 0,
-    "d": "When a client challenges strategy, the Sr AM answers with platform logic and how success will be measured.",
-    "ev": "A client pushed back on testing several avatars; the Sr AM replied with the reasoning and kill criteria.",
+    "lvl": 2,
+    "d": "Sr AMs defend strategy when a client pushes back. Jr AMs have started doing it for creative choices, but not consistently.",
+    "ev": "A Jr AM explained to a client why two ads used a new offer: Meta performs better with distinct creatives than with near-identical variations.",
     "q": [
       "q35",
       "q52"

@@ -106,6 +106,52 @@
         "I tag the Sr AM and the PM"
       ],
       "reward": {
+        "k": "tip",
+        "t": "Batch send checklist",
+        "d": "Copy-paste template"
+      }
+    },
+    {
+      "id": "q26",
+      "sk": "plan",
+      "t": "Check capacity before you commit",
+      "type": "text",
+      "xp": 100,
+      "d": "Propose batch dates that fit the Creative team before promising the client.",
+      "why": "A date you promise the client is a date the Creative team has to hit. If you commit before checking their load, someone else pays for it, and the client sees the slip.",
+      "brief": "Three requests land the same week: a refresh, a seasonal batch and a landing page. Propose dates for each, set the priority field, and write the message you’d send the client.",
+      "ex": "The Creative team can take one task or project per day, plus feedback on other briefs. Check with them before adding next-day tasks, and fill in priority on every ask.",
+      "deliver": "Your plan and client message",
+      "rubric": [
+        "I checked capacity before proposing dates",
+        "Each task has a priority",
+        "High-priority work goes first, low-priority work moves",
+        "The client message gives dates I can keep"
+      ],
+      "reward": {
+        "k": "template",
+        "t": "Weekly Creative pipeline view",
+        "d": "ClickUp view by priority"
+      }
+    },
+    {
+      "id": "q27",
+      "sk": "loop",
+      "t": "Close the launch loop",
+      "type": "text",
+      "xp": 100,
+      "d": "After approval: it’s live, it’s in the report, and the task is up to date.",
+      "why": "An approved batch that never gets tested is wasted work, and nobody learns from it. Approval isn’t the finish line, launch is.",
+      "brief": "Your batch was approved on Monday. Write the checklist you’ll run by Wednesday, and the update you’ll post in the internal channel.",
+      "ex": "A Creative strategist asked if last batch’s AI videos were ever tested. They weren’t in the report or in Ads Manager, so there was no learning to brief from.",
+      "deliver": "Your checklist and internal update",
+      "rubric": [
+        "I confirm the ads are live in Ads Manager",
+        "I confirm they show up in the report",
+        "I update the task with the latest client info",
+        "I tag the PM and the Creative strategist"
+      ],
+      "reward": {
         "k": "unlock",
         "t": "Opens the Client service module",
         "d": "So shall we talk?"
