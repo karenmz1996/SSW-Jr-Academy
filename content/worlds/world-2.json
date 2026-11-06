@@ -3,53 +3,15 @@
   "icon": "pen",
   "q": "So shall we brief?",
   "sub": "Creative & briefing",
-  "desc": "Brief well, review with judgment and present to the client with a rationale.",
+  "desc": "The life of a batch, from the data to the launch: brief it, plan it, check it, send it, and make sure it actually runs.",
   "quests": [
-    {
-      "id": "q21",
-      "sk": "brief",
-      "t": "Batch Briefing AM + PM",
-      "type": "doc",
-      "xp": 150,
-      "d": "Number of ads, campaign details, resources and learnings.",
-      "why": "The batch brief is where performance learnings turn into the next ads. A thin brief gets you pretty ads that don’t move the KPI.",
-      "brief": "Write the Batch Briefing for the next batch on one of your accounts, following the template checklist.",
-      "ex": "Objective: foundational assets. Key event: booked call. Few learnings yet because the funnel kept changing, so the founder-led videos stay, but they can’t be the only conversion driver.",
-      "deliver": "Link to the task or doc",
-      "rubric": [
-        "I define the number of ads",
-        "I confirmed the performance report is up to date",
-        "I detail the campaign: key event and funnel stage",
-        "I list resources and last batch’s learnings"
-      ],
-      "reward": {
-        "k": "video",
-        "t": "The 5 brief mistakes I see most",
-        "d": "Sr AM Clip · 4 min"
-      }
-    },
-    {
-      "id": "q22",
-      "sk": "qa",
-      "t": "First look",
-      "type": "quiz",
-      "xp": 150,
-      "d": "A batch with planted mistakes. Catch them all.",
-      "why": "You are the last filter before the client. Every mistake you catch here is one the client never sees.",
-      "brief": "This batch has planted mistakes. Select every piece you would not send to the client.",
-      "reward": {
-        "k": "template",
-        "t": "Creative QA checklist",
-        "d": "Run it before every send"
-      }
-    },
     {
       "id": "q23",
       "sk": "perf",
       "t": "From report to brief",
       "type": "doc",
       "xp": 150,
-      "d": "Start a batch from the data, not from a request.",
+      "d": "Start a batch from what the data already proved, not from a request.",
       "why": "The best batches start from what the data already proved. If you wait for someone to ask, you’re always one batch behind.",
       "brief": "Using the PM’s best-performing-ads analysis, decide which angles to iterate, which to cut and why. Then turn it into the brief for the next batch.",
       "ex": "Top ad by CPL: $18.7 with 124 leads. An ad at $71 with 4 leads isn’t a loser yet, it’s noise. Weigh winners by volume, not just cost.",
@@ -57,6 +19,7 @@
       "rubric": [
         "I use CPL, CTR and hook rate, not just one",
         "I weigh winners by lead volume",
+        "If an ad I expected isn’t in the report, I find out why before briefing",
         "Every decision has a reason"
       ],
       "reward": {
@@ -66,49 +29,27 @@
       }
     },
     {
-      "id": "q24",
-      "sk": "xbrief",
-      "t": "Brief by AM",
+      "id": "q21",
+      "sk": "brief",
+      "t": "Batch Briefing AM + PM",
       "type": "doc",
-      "xp": 200,
-      "d": "The 12 sections for a cross-functional, from Request to Done when.",
-      "why": "A Brief by AM blocks everything downstream. A vague one costs the cross-functional days of back-and-forth.",
-      "brief": "Write a Brief by AM for Funnels & CRM on an anonymized case, using all 12 sections of the template.",
-      "ex": "Do not touch: Won and Disqualified stages, CAPI workflows, booking calendars, and leads abandoned manually by the setter.",
-      "deliver": "Link to the task",
+      "xp": 150,
+      "d": "Number of ads, campaign details, resources and learnings.",
+      "why": "The batch brief is where performance learnings turn into the next ads. A thin brief gets you pretty ads that don’t move the KPI, and an outdated one gets you ads the client already changed their mind about.",
+      "brief": "Write the Batch Briefing for the next batch on one of your accounts, following the template checklist.",
+      "ex": "Objective: foundational assets. Key event: booked call. Few learnings yet because the funnel kept changing, so the founder-led videos stay, but they can’t be the only conversion driver.",
+      "deliver": "Link to the task or doc",
       "rubric": [
-        "Goal and Context are separate",
-        "Systems in scope and audience include volume",
-        "Do not touch is explicit",
-        "Done when is verifiable"
+        "I define the number of ads",
+        "I attached the PM’s best-performing-ads analysis",
+        "The brief reflects the latest positioning the client approved",
+        "I detail the campaign: key event and funnel stage",
+        "I list resources and last batch’s learnings"
       ],
       "reward": {
         "k": "video",
-        "t": "Anatomy of a great Brief by AM",
-        "d": "Sr AM Clip · 7 min"
-      }
-    },
-    {
-      "id": "q25",
-      "sk": "loop",
-      "t": "Send the batch",
-      "type": "text",
-      "xp": 100,
-      "d": "Goal, angles, links by format and the right people tagged.",
-      "why": "The send message is the client’s first read of the strategy. It should explain why these ads exist, not just where to find them.",
-      "brief": "Write the message that sends a batch to the client: title, links by format, goal, angles being tested, feedback request and the right tags.",
-      "ex": "The goal for this batch is to run two tests side by side: add location callouts to two proven angles, and test a new angle built around customer reviews.",
-      "deliver": "Your message",
-      "rubric": [
-        "I state the goal of the batch",
-        "I name the angles being tested",
-        "I ask for feedback in Drive with a date",
-        "I tag the Sr AM and the PM"
-      ],
-      "reward": {
-        "k": "tip",
-        "t": "Batch send checklist",
-        "d": "Copy-paste template"
+        "t": "The 5 brief mistakes I see most",
+        "d": "Sr AM Clip · 4 min"
       }
     },
     {
@@ -132,6 +73,45 @@
         "k": "template",
         "t": "Weekly Creative pipeline view",
         "d": "ClickUp view by priority"
+      },
+      "visLabel": "This week"
+    },
+    {
+      "id": "q22",
+      "sk": "qa",
+      "t": "First look",
+      "type": "quiz",
+      "xp": 150,
+      "d": "A batch with planted mistakes. Catch them all.",
+      "why": "You are the last filter before the client. Every mistake you catch here is one the client never sees.",
+      "brief": "This batch has planted mistakes. Select every piece you would not send to the client.",
+      "reward": {
+        "k": "template",
+        "t": "Creative QA checklist",
+        "d": "Run it before every send"
+      }
+    },
+    {
+      "id": "q25",
+      "sk": "loop",
+      "t": "Send the batch",
+      "type": "text",
+      "xp": 100,
+      "d": "Goal, angles, links by format and the right people tagged.",
+      "why": "The send message is the client’s first read of the strategy. It should explain why these ads exist, not just where to find them.",
+      "brief": "Write the message that sends a batch to the client: title, links by format, goal, angles being tested, feedback request and the right tags.",
+      "ex": "This batch includes the latest performance learnings, iterations on the formats and angles showing the strongest signals, and competitor research to guide the new executions. Could you leave feedback in Drive by Thursday?",
+      "deliver": "Your message",
+      "rubric": [
+        "I state the goal of the batch and the learnings behind it",
+        "I name the angles being tested",
+        "I ask for feedback in Drive with a date",
+        "I tag the Sr AM and the PM"
+      ],
+      "reward": {
+        "k": "tip",
+        "t": "Batch send checklist",
+        "d": "Copy-paste template"
       }
     },
     {
@@ -150,6 +130,30 @@
         "I confirm they show up in the report",
         "I update the task with the latest client info",
         "I tag the PM and the Creative strategist"
+      ],
+      "reward": {
+        "k": "template",
+        "t": "Launch checklist",
+        "d": "Run it 48 h after approval"
+      }
+    },
+    {
+      "id": "q24",
+      "sk": "xbrief",
+      "t": "Brief by AM",
+      "type": "doc",
+      "xp": 200,
+      "d": "A cross-functional brief: right space, right template, all 12 sections.",
+      "why": "A Brief by AM blocks everything downstream. A vague one costs the cross-functional days of back-and-forth.",
+      "brief": "Write a Brief by AM for Funnels & CRM on an anonymized case. Create it in the right ClickUp space with the right template, and fill in all 12 sections.",
+      "ex": "Do not touch: Won and Disqualified stages, CAPI workflows, booking calendars, and leads abandoned manually by the setter.",
+      "deliver": "Link to the task",
+      "rubric": [
+        "It lives in the right space, built from the right template",
+        "Goal and Context are separate",
+        "Systems in scope and audience include volume",
+        "Do not touch is explicit",
+        "Done when is verifiable"
       ],
       "reward": {
         "k": "unlock",

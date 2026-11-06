@@ -77,3 +77,26 @@ const VIS={
   <p>The goal is to run two tests side by side: add location callouts to two proven angles, and test a new angle built around customer reviews.</p>
   <p>Could you leave feedback in Drive by Thursday?</p><p>cc <span class="mn">@Sr AM</span> <span class="mn">@PM</span></p></div></div>`
 };
+
+/* Check capacity before you commit: the week as the Creative team sees it */
+VIS.q26=()=>`<div class="wk">${[
+  ['Mon','Other pod: batch','busy'],['Tue','Other pod: LP','busy'],['Wed','','free'],['Thu','','free'],['Fri','','free']
+ ].map(([d,t,c])=>`<div class="wkd ${c}"><span class="mono">${d}</span>${t?`<b>${t}</b>`:'<i>Open slot</i>'}</div>`).join('')}</div>
+ <p class="qd" style="margin:12px 0 8px">Creative capacity: one task or project per day, plus feedback on other briefs.</p>
+ <div class="reqs">
+  <div class="req-i"><span class="dc cut">High</span><b>Refresh for a fatiguing campaign</b><span>Client asked for it “by Tuesday”</span></div>
+  <div class="req-i"><span class="dc wa">Medium</span><b>Seasonal batch</b><span>Needs to launch next week</span></div>
+  <div class="req-i"><span class="dc it">Low</span><b>Landing page tweaks</b><span>No hard date</span></div>
+ </div>`;
+
+/* Close the launch loop: the 48-hour check after approval */
+VIS.q27=()=>`<div class="cu"><span class="t">Seasonal batch — Launch check (48 h after approval)</span>
+  <div class="sub" style="border-top:0;padding-top:0">
+   <span class="ck"><i></i>Live in Ads Manager: 6 of 6 ads active</span>
+   <span class="ck off"><i></i>In the performance report: 4 of 6 → ask the PM about the 2 missing</span>
+   <span class="ck"><i></i>Task updated with the positioning the client approved</span>
+   <span class="ck off"><i></i>Internal update posted, PM and Creative strategist tagged</span>
+  </div></div>
+ <div class="slack" style="margin-top:12px"><span class="av2">AM</span><div><span class="nm">Jr AM<small>internal channel</small></span>
+  <p>Seasonal batch is live: 6 of 6 ads active. 2 aren’t in the report yet, <span class="mn">@PM</span> can you check the naming? Task updated with the approved positioning.</p>
+  <p>cc <span class="mn">@Creative strategist</span></p></div></div>`;

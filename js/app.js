@@ -34,10 +34,10 @@ const OBS=['Not seen yet','With prompting','Inconsistent','Consistent'];
 
 
 const S={view:'jr',srTab:'review',open:null,streak:3,
- status:{q21:'review',q22:'available'},
+ status:{q23:'approved',q21:'approved',q26:'review',q22:'available'},
  exceeds:{},
- subs:{q21:{v:'ssw.clickup.com/t/batch-briefing-november (example)',at:'2 h ago'}},
- fb:{},
+ subs:{q26:{v:'Wed: refresh (high) \u00b7 Thu: seasonal batch (medium) \u00b7 Fri: landing page (low). Client: \u201cMon and Tue are booked, so the refresh lands Wednesday and the seasonal batch Thursday, in time for next week\u2019s launch.\u201d (example)',at:'2 h ago'}},
+ fb:{q21:'Good brief. Next time link the positioning doc version the client approved.'},
  quiz:{picked:new Set(),checked:false},cel:[]};
 
 let SKILLS=[],WORLDS=[],GAPS=[],TOUR=[],allQ=[],total=0;
@@ -179,7 +179,7 @@ function renderPanel(){
   const q=qById(S.open), s=st(q.id), w=WORLDS.find(x=>x.id===q.w), sk=skById(q.sk), lv=skillLevel(q.sk);
   const why=`<div class="why blk"><span class="mono">Why it matters</span><p>${q.why||q.d}</p></div>`;
   const brief=`<div class="blk"><span class="mono">Your mission</span><p>${q.brief||q.d}</p></div>`;
-  const see=VIS[q.id]?`<div class="blk"><span class="mono">${q.type==='quiz'?'See it':'What you\u2019ll make'}</span><div class="see">${VIS[q.id]()}</div></div>`:'';
+  const see=VIS[q.id]?`<div class="blk"><span class="mono">${q.visLabel||(q.type==='quiz'?'See it':'What you\u2019ll make')}</span><div class="see">${VIS[q.id]()}</div></div>`:'';
   const ex=q.ex?`<div class="blk"><span class="mono">What good looks like · from SSW, anonymized</span><div class="example">${q.ex}</div></div>`:'';
   let body='',foot='';
   if(S.view==='sr'){

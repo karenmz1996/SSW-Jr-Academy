@@ -45,7 +45,7 @@ Most changes only touch `content/`. Each quest in a `world-N.json` file looks li
 - `id`: unique, never reuse. `sk`: a skill id from `skills.json`.
 - `type`: `doc`, `clip`, `quiz`, `text`, `sim` or `live`.
 - `reward.k`: `video`, `template`, `tip` or `unlock`.
-- A visual preview for a quest lives in `js/visuals.js` under `VIS.<quest id>`.
+- A visual preview for a quest lives in `js/visuals.js` under `VIS.<quest id>`. Its label defaults to "What you'll make"; set `visLabel` on the quest to change it (e.g. "This week").
 - A module with `"placeholder": true` shows its lessons as "Coming soon", doesn't count toward XP or AM Ready, and doesn't block the next module. Remove the flag when its content is ready.
 
 Content rules: no client names, no real people, no client data. Examples are anonymized.

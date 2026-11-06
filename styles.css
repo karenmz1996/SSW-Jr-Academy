@@ -385,3 +385,14 @@ textarea{min-height:110px;resize:vertical}
 .soon-ic{width:40px;height:40px;border-radius:10px;background:var(--bg);border:1px solid var(--line);color:var(--muted);display:grid;place-items:center}
 .soon-ic svg{width:20px;height:20px}
 @media (max-width:640px){.soon-grid{grid-template-columns:1fr}}
+
+/* Capacity week + requests (Check capacity quest) */
+.wk{display:grid;grid-template-columns:repeat(5,minmax(96px,1fr));gap:8px;min-width:520px}
+.wkd{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:76px;display:flex;flex-direction:column;gap:6px;font-size:12.5px}
+.wkd.busy{background:var(--tile-hi);color:var(--muted)}
+.wkd.free{border-style:dashed}
+.wkd i{color:var(--faint);font-style:normal}
+.reqs{display:flex;flex-direction:column;gap:8px}
+.req-i{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13px}
+.req-i span:last-child{color:var(--muted);font-size:12.5px}
+.cu .ck.off i{background:transparent}
